@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30503.244
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarbezDotEu.License.Generation", "BarbezDotEu.License.Generation\BarbezDotEu.License.Generation.csproj", "{DB80CC76-082D-4B9C-8359-C468C09D7EAE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarbezDotEu.License.Verification", "BarbezDotEu.License.Verification\BarbezDotEu.License.Verification.csproj", "{956C7783-E95C-4CCA-A801-28705B88D67E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DB80CC76-082D-4B9C-8359-C468C09D7EAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB80CC76-082D-4B9C-8359-C468C09D7EAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB80CC76-082D-4B9C-8359-C468C09D7EAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB80CC76-082D-4B9C-8359-C468C09D7EAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{956C7783-E95C-4CCA-A801-28705B88D67E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{956C7783-E95C-4CCA-A801-28705B88D67E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{956C7783-E95C-4CCA-A801-28705B88D67E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{956C7783-E95C-4CCA-A801-28705B88D67E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E2471BBC-B3AD-4AD1-B397-8AA00F308B75}
+	EndGlobalSection
+EndGlobal
