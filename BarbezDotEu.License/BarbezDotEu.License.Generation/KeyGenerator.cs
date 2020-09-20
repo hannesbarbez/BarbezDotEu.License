@@ -6,12 +6,12 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BarbezDotEu.License.Shared;
 
 namespace BarbezDotEu.License.Generation
 {
     public class KeyGenerator
     {
-        private const string EXCEPTION = "One or more parameters are invalid. NULL, empty or default values are not permitted parameters.";
         private static ConcurrentBag<string> keys;
         private readonly int resultingSum;
         private readonly string divider;
@@ -25,7 +25,7 @@ namespace BarbezDotEu.License.Generation
         {
             if (string.IsNullOrWhiteSpace(divider) || resultingSum == default)
             {
-                throw new ArgumentException(EXCEPTION);
+                throw new ArgumentException(Generic.EXCEPTION);
             }
 
             this.resultingSum = resultingSum;
@@ -38,11 +38,11 @@ namespace BarbezDotEu.License.Generation
         /// <param name="numberOfKeys">The amount of keys to generate.</param>
         /// <param name="excludedKeys">A number of keys that should not be make part of the resulting key set.</param>
         /// <returns>The generated license keys.</returns>
-        public async Task<ConcurrentBag<string>> GenerateKeys(uint numberOfKeys, string[] excludedKeys)
+        public async Task<string[]> GenerateKeys(uint numberOfKeys, string[] excludedKeys)
         {
             if (numberOfKeys == default)
             {
-                throw new ArgumentException(EXCEPTION);
+                throw new ArgumentException(Generic.EXCEPTION);
             }
 
             var excluded = new HashSet<string>(excludedKeys.Where(x => !string.IsNullOrWhiteSpace(x)).Select(x => x.Trim()));
@@ -58,7 +58,7 @@ namespace BarbezDotEu.License.Generation
                     }
                 });
 
-                return keys;
+                return keys.ToArray();
             });
         }
 
