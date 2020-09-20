@@ -27,8 +27,9 @@ namespace BarbezDotEu.License.Verification
         /// Checks if a key is valid as well as all of its segments.
         /// </summary>
         /// <returns>True if the key is valid; false otherwise.</returns>
-        private bool ValidateSegments(string segment1, string segment2, string segment3, string segment4, string segment5)
+        public bool VerifyKey(string segment1, string segment2, string segment3, string segment4, string segment5)
         {
+            this.ValidateSegments(segment1, segment2, segment3, segment4, segment5);
             try
             {
                 string seq1 = $"{segment1[0]}{segment2[0]}{segment3[0]}{segment4[0]}{segment5[0]}";
@@ -46,7 +47,25 @@ namespace BarbezDotEu.License.Verification
                                         return true;
                 return false;
             }
+
             catch { return false; }
+        }
+
+        private void ValidateSegments(string segment1, string segment2, string segment3, string segment4, string segment5)
+        {
+            if (string.IsNullOrWhiteSpace(segment1)
+                || string.IsNullOrWhiteSpace(segment2)
+                || string.IsNullOrWhiteSpace(segment3)
+                || string.IsNullOrWhiteSpace(segment4)
+                || string.IsNullOrWhiteSpace(segment5)
+                || segment1.Length != SYMMETRICLENGTH
+                || segment2.Length != SYMMETRICLENGTH
+                || segment3.Length != SYMMETRICLENGTH
+                || segment4.Length != SYMMETRICLENGTH
+                || segment5.Length != SYMMETRICLENGTH)
+            {
+                throw new ArgumentException(Generic.EXCEPTION);
+            }
         }
 
         public bool VerifyKey(string key)
@@ -62,7 +81,7 @@ namespace BarbezDotEu.License.Verification
                 throw new ArgumentException(Generic.EXCEPTION);
             }
 
-            return this.ValidateSegments(segments[0], segments[1], segments[2], segments[3], segments[4]);
+            return this.VerifyKey(segments[0], segments[1], segments[2], segments[3], segments[4]);
         }
 
         /// <summary>
@@ -77,7 +96,7 @@ namespace BarbezDotEu.License.Verification
             int i4 = 0;
             int i5 = 0;
 
-            if ((segment1 + segment2 + segment3 + segment4 + segment5).Length == (SYMMETRICLENGTH * 5))
+            if ((segment1 + segment2 + segment3 + segment4 + segment5).Length == SYMMETRICLENGTH * SYMMETRICLENGTH)
             {
                 foreach (char c in segment1)
                     i1 += c;
