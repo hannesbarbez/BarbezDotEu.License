@@ -36,7 +36,7 @@ namespace BarbezDotEu.License.Generation
         /// Generates a number of license keys.
         /// </summary>
         /// <param name="numberOfKeys">The amount of keys to generate.</param>
-        /// <param name="excludedKeys">A number of keys that should not be make part of the resulting key set.</param>
+        /// <param name="excludedKeys">Keys that cannot be present in the resulting key set.</param>
         /// <returns>The generated license keys.</returns>
         public async Task<string[]> GenerateKeys(uint numberOfKeys, string[] excludedKeys)
         {
