@@ -28,7 +28,8 @@ A demo project using this generic library can be found at https://github.com/han
 - Custom “resulting-sum” algorithm to generate a bunch of unique license keys quickly;
 - On-the-fly license key validator;
 - Decoupling, e.g. strict separation between UI and logic;
-- Generated license keys that are easy for people to spell out loud.
+- Generated license keys that are easy for people to spell out loud;
+- Native support for async/await.
 
 ## Custom Resulting-Sum Algorithm
 
