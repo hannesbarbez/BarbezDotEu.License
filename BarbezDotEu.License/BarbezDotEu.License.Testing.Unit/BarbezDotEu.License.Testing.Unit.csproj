@@ -2,11 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <Authors>Barbez.eu</Authors>
-    <Company>Barbez.eu</Company>
+    <Authors>Hannes Barbez</Authors>
+    <Company>Hannes Barbez</Company>
     <Product>BarbezDotEu.License</Product>
-    <Copyright>©2020 Barbez.eu</Copyright>
-
+    <Copyright>©2021 Hannes Barbez</Copyright>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 

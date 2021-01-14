@@ -6,12 +6,12 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BarbezDotEu.License.Shared;
 
 namespace BarbezDotEu.License.Generation
 {
     public class KeyGenerator
     {
+        public const string EXCEPTION = "One or more parameters are invalid. NULL, empty or default values are not permitted parameters.";
         private static ConcurrentBag<string> keys;
         private readonly int resultingSum;
         private readonly string divider;
@@ -25,7 +25,7 @@ namespace BarbezDotEu.License.Generation
         {
             if (string.IsNullOrWhiteSpace(divider) || resultingSum == default)
             {
-                throw new ArgumentException(Generic.EXCEPTION);
+                throw new ArgumentException(EXCEPTION);
             }
 
             this.resultingSum = resultingSum;
@@ -42,7 +42,7 @@ namespace BarbezDotEu.License.Generation
         {
             if (numberOfKeys == default)
             {
-                throw new ArgumentException(Generic.EXCEPTION);
+                throw new ArgumentException(EXCEPTION);
             }
 
             var excluded = new HashSet<string>(excludedKeys.Where(x => !string.IsNullOrWhiteSpace(x)).Select(x => x.Trim()));

@@ -2,12 +2,12 @@
 // Licensed under the GNU General Public License v3.0
 
 using System;
-using BarbezDotEu.License.Shared;
 
 namespace BarbezDotEu.License.Verification
 {
     public class KeyVerificator
     {
+        public const string EXCEPTION = "One or more parameters are invalid. NULL, empty or default values are not permitted parameters.";
         private const int SYMMETRICLENGTH = 5;
         private readonly int resultingSum;
         private readonly string divider;
@@ -16,7 +16,7 @@ namespace BarbezDotEu.License.Verification
         {
             if (string.IsNullOrWhiteSpace(divider) || resultingSum == default)
             {
-                throw new ArgumentException(Generic.EXCEPTION);
+                throw new ArgumentException(EXCEPTION);
             }
 
             this.resultingSum = resultingSum;
@@ -64,7 +64,7 @@ namespace BarbezDotEu.License.Verification
                 || segment4.Length != SYMMETRICLENGTH
                 || segment5.Length != SYMMETRICLENGTH)
             {
-                throw new ArgumentException(Generic.EXCEPTION);
+                throw new ArgumentException(EXCEPTION);
             }
         }
 
@@ -72,13 +72,13 @@ namespace BarbezDotEu.License.Verification
         {
             if (string.IsNullOrWhiteSpace(key))
             {
-                throw new ArgumentException(Generic.EXCEPTION);
+                throw new ArgumentException(EXCEPTION);
             }
 
             var segments = key.Trim().Split(this.divider);
             if (segments.Length != SYMMETRICLENGTH)
             {
-                throw new ArgumentException(Generic.EXCEPTION);
+                throw new ArgumentException(EXCEPTION);
             }
 
             return this.VerifyKey(segments[0], segments[1], segments[2], segments[3], segments[4]);
