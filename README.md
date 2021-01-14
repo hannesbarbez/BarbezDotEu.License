@@ -4,13 +4,15 @@ A generator for human-friendly, readable license keys and serial numbers by www.
 
 Produces license keys you don't mind spelling out loud to another person.
 
+The Barbez.eu license key generator is ideal for all your license key or serial number generation needs, producing keys or serials that are easy to read out loud one human to another. Yet, the algorithm is quick enough to generate a decent amount of them in a short period of time.
+
+# NuGet packages and demo
+
 Get the **generator** NuGet package from https://www.nuget.org/packages/BarbezDotEu.License.Generation/ or use 
 > Install-Package BarbezDotEu.License.Generation -Version 1.0.0
 
 Get the **verifier** NuGet package from https://www.nuget.org/packages/BarbezDotEu.License.Verification/ or use
 > Install-Package BarbezDotEu.License.Verification -Version 1.0.0
-
-The Barbez.eu license key generator is ideal for all your license key or serial number generation needs, producing keys or serials that are easy to read out loud one human to another. Yet, the algorithm is quick enough to generate a decent amount of them in a short period of time.
 
 A demo project using this generic library can be found at https://github.com/hannesbarbez/BarbezDotEu.License.Generator.WinForms.
 
