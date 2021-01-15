@@ -6,7 +6,15 @@ Produces license keys you don't mind spelling out loud to another person.
 
 The Barbez.eu license key generator is ideal for all your license key or serial number generation needs, producing keys or serials that are easy to read out loud one human to another. Yet, the algorithm is quick enough to generate a decent amount of them in a short period of time.
 
-# NuGet packages and demo
+## Table of Contents
+0. [NuGet Packages and Demo app](#nuger-packages-and-demo-app)
+1. [Features](#features)
+2. [Custom Resulting-Sum Algorithm](#custom-resulting-sum-algorithm)
+3. [Performance](#performance)
+4. [Stats](#stats)
+5. [Graphs](#graphs)
+
+## NuGet Packages and Demo app
 
 Get the **generator** NuGet package from https://www.nuget.org/packages/BarbezDotEu.License.Generation/ or use 
 > Install-Package BarbezDotEu.License.Generation -Version 1.0.0
@@ -15,13 +23,6 @@ Get the **verifier** NuGet package from https://www.nuget.org/packages/BarbezDot
 > Install-Package BarbezDotEu.License.Verification -Version 1.0.0
 
 A demo project using this generic library can be found at https://github.com/hannesbarbez/BarbezDotEu.License.Generator.WinForms.
-
-## Table of Contents
-1. [Features](#features)
-2. [Custom Resulting-Sum Algorithm](#custom-resulting-sum-algorithm)
-3. [Performance](#performance)
-4. [Stats](#stats)
-5. [Graphs](#graphs)
 
 ## Features
 - Full multithreading, thanks to .NET Core’s TPL (Task Parallel Library);
