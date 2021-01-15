@@ -33,11 +33,9 @@ A demo project using this generic library can be found at https://github.com/han
 
 ## Custom Resulting-Sum Algorithm
 
-The generator algorithm was made up in a matter of hours, the whole app (including a recent rewrite) took a couple of days to write.
+Lacking academic knowledge on serial number or license key generation algos, the generator algorithm is my own idea, so I’ve decided to dub it “resulting-sum”. More info on the exact workings to follow, for now the source code should suffice to explain its inner workings.
 
-Lacking academic knowledge on serial number or license key generation algos, and since this algorithm is my own, I’ve decided to dub it “resulting-sum” generation.
 
-See the source code for the exact working of the algorithm.
 
 ## Performance
 After running a couple of tests on an AMD Ryzen 1600 (6 cores, 12 threads) based machine, I compiled a short table with the results.
