@@ -7,7 +7,7 @@ Produces license keys you don't mind spelling out loud to another person.
 The Barbez.eu license key generator is ideal for all your license key or serial number generation needs, producing keys or serials that are easy to read out loud one human to another. Yet, the algorithm is quick enough to generate a decent amount of them in a short period of time.
 
 ## Table of Contents
-0. [NuGet Packages and Demo app](#nuger-packages-and-demo-app)
+0. [NuGet Packages and Demo app](#nuget-packages-and-demo-app)
 1. [Features](#features)
 2. [Custom Resulting-Sum Algorithm](#custom-resulting-sum-algorithm)
 3. [Performance](#performance)
