@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Hannes Barbez. All rights reserved.
 // Licensed under the GNU General Public License v3.0
 
-using System.Linq;
 using System.Threading.Tasks;
 using BarbezDotEu.License.Generation;
 using BarbezDotEu.License.Verification;
@@ -25,14 +24,17 @@ namespace BarbezDotEu.License.Testing.Unit
         public async Task GeneratedKeyCanBeVerifiedAsync()
         {
             // Check numberOfKeys matches
-            var numberOfKeys = 2500;
+            var numberOfKeys = 10000;
             var excludedKeys = new string[] { };
             var keys = await KeyGenerator.GenerateKeys((uint)numberOfKeys, excludedKeys);
             Assert.AreEqual(numberOfKeys, keys.Length);
 
             // Check keys can be verified
-            var validKey = keyVerificator.VerifyKey(keys.First());
-            Assert.IsTrue(validKey);
+            Parallel.ForEach(keys, key =>
+            {
+                var validKey = keyVerificator.VerifyKey(key);
+                Assert.IsTrue(validKey);
+            });
         }
 
         [TestMethod]

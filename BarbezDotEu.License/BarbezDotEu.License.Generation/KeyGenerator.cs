@@ -60,7 +60,8 @@ namespace BarbezDotEu.License.Generation
                 Parallel.For(default, numberOfKeys, x =>
                 {
                     var validKey = false;
-                    while (!validKey) {
+                    while (!validKey)
+                    {
                         var key = this.GenerateKey();
                         validKey = !keys.Contains(key) && !excluded.Contains(key);
                         if (validKey)
@@ -98,11 +99,11 @@ namespace BarbezDotEu.License.Generation
             while (tempResult != calc)
             {
                 // 48 = 0; 90 = Z; 57 = 9; 65 = A.
-                n0 = new Random(Guid.NewGuid().GetHashCode()).Next(48, 57);
-                n1 = new Random(Guid.NewGuid().GetHashCode()).Next(n0, 57);
-                n2 = new Random(Guid.NewGuid().GetHashCode()).Next(65, this.upper);
-                n3 = new Random(Guid.NewGuid().GetHashCode()).Next(n2, this.upper);
-                n4 = new Random(Guid.NewGuid().GetHashCode()).Next(n3, this.upper);
+                n0 = new Random(Guid.NewGuid().GetHashCode()).Next(48, 57 - 2);
+                n1 = new Random(Guid.NewGuid().GetHashCode()).Next(n0 + 2, 57);
+                n2 = new Random(Guid.NewGuid().GetHashCode()).Next(65, this.upper - 3);
+                n3 = new Random(Guid.NewGuid().GetHashCode()).Next(n2 + 2, this.upper - 2);
+                n4 = new Random(Guid.NewGuid().GetHashCode()).Next(n3 + 2, this.upper);
 
                 // Sequence has to match the following formula.
                 tempResult = ((n0 + n2 + n4) - (n1 + n3));
