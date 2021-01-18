@@ -11,25 +11,33 @@ namespace BarbezDotEu.License.Generation
 {
     public class KeyGenerator
     {
-        public const string EXCEPTION = "One or more parameters are invalid. NULL, empty or default values are not permitted parameters.";
-        private static ConcurrentBag<string> keys;
         private readonly int resultingSum;
+        private readonly decimal modulo25;
+        private readonly decimal multiplier60;
+        private readonly int upper;
+        public const string EXCEPTION = "One or more parameters are invalid. NULL, negative, empty or default values are not valid parameters.";
+        private static ConcurrentBag<string> keys;
         private readonly string divider;
 
         /// <summary>
         /// Constructs a new <see cref="KeyGenerator"/>.
         /// </summary>
-        /// <param name="resultingSum">The expected "sum" of the key. All keys share the same "sum", which is what makes the key validatable.</param>
+        /// <param name="resultingSum">The expected "sum" of the key. All keys share the same "sum", which is what makes the key validatable. Negative or default values are not valid.</param>
         /// <param name="divider">The desored division in between segments of the license key.</param>
         public KeyGenerator(int resultingSum, string divider)
         {
-            if (string.IsNullOrWhiteSpace(divider) || resultingSum == default)
+            if (string.IsNullOrWhiteSpace(divider) || resultingSum <= 0)
             {
                 throw new ArgumentException(EXCEPTION);
             }
 
             this.resultingSum = resultingSum;
             this.divider = divider;
+
+            // 0-25 = 26 letters of English alphabet.
+            this.modulo25 = resultingSum % 25;
+            this.multiplier60 = Math.Floor(resultingSum / new decimal(60));
+            this.upper = (int)Math.Floor(90 - (modulo25 / 3));
         }
 
         /// <summary>
@@ -51,10 +59,14 @@ namespace BarbezDotEu.License.Generation
             {
                 Parallel.For(default, numberOfKeys, x =>
                 {
-                    var key = this.GenerateKey();
-                    if (!keys.Contains(key) && !excluded.Contains(key))
-                    {
-                        keys.Add(key);
+                    var validKey = false;
+                    while (!validKey) {
+                        var key = this.GenerateKey();
+                        validKey = !keys.Contains(key) && !excluded.Contains(key);
+                        if (validKey)
+                        {
+                            keys.Add(key);
+                        }
                     }
                 });
 
@@ -82,14 +94,15 @@ namespace BarbezDotEu.License.Generation
         private int[] GetSequence()
         {
             int tempResult = 0, n0 = 0, n1 = 0, n2 = 0, n3 = 0, n4 = 0;
-            while (tempResult != resultingSum)
+            var calc = Math.Floor(resultingSum / multiplier60);
+            while (tempResult != calc)
             {
-                // For "Next" parameters (numbers) exlanation, see ASCII code table.
-                n0 = new Random(Guid.NewGuid().GetHashCode()).Next(48, 53);
-                n1 = new Random(Guid.NewGuid().GetHashCode()).Next(n0 + 2, 57);
-                n2 = new Random(Guid.NewGuid().GetHashCode()).Next(65, 76);
-                n3 = new Random(Guid.NewGuid().GetHashCode()).Next(n2 + 2, 85);
-                n4 = new Random(Guid.NewGuid().GetHashCode()).Next(n3 + 2, 90);
+                // 48 = 0; 90 = Z; 57 = 9; 65 = A.
+                n0 = new Random(Guid.NewGuid().GetHashCode()).Next(48, 57);
+                n1 = new Random(Guid.NewGuid().GetHashCode()).Next(n0, 57);
+                n2 = new Random(Guid.NewGuid().GetHashCode()).Next(65, this.upper);
+                n3 = new Random(Guid.NewGuid().GetHashCode()).Next(n2, this.upper);
+                n4 = new Random(Guid.NewGuid().GetHashCode()).Next(n3, this.upper);
 
                 // Sequence has to match the following formula.
                 tempResult = ((n0 + n2 + n4) - (n1 + n3));

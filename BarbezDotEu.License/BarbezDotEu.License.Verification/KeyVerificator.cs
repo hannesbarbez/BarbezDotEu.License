@@ -11,6 +11,7 @@ namespace BarbezDotEu.License.Verification
         private const int SYMMETRICLENGTH = 5;
         private readonly int resultingSum;
         private readonly string divider;
+        private readonly decimal multiplier60;
 
         public KeyVerificator(int resultingSum, string divider)
         {
@@ -21,6 +22,7 @@ namespace BarbezDotEu.License.Verification
 
             this.resultingSum = resultingSum;
             this.divider = divider;
+            this.multiplier60 = resultingSum / new decimal(60);
         }
 
         /// <summary>
@@ -38,14 +40,12 @@ namespace BarbezDotEu.License.Verification
                 string seq4 = $"{segment1[3]}{segment2[3]}{segment3[3]}{segment4[3]}{segment5[3]}";
                 string seq5 = $"{segment1[4]}{segment2[4]}{segment3[4]}{segment4[4]}{segment5[4]}";
 
-                if (ValidateSegment(seq1))
-                    if (ValidateSegment(seq2))
-                        if (ValidateSegment(seq3))
-                            if (ValidateSegment(seq4))
-                                if (ValidateSegment(seq5))
-                                    if (ValidKey(segment1, segment2, segment3, segment4, segment5))
-                                        return true;
-                return false;
+                return ValidateSegment(seq1)
+                    && ValidateSegment(seq2)
+                        && ValidateSegment(seq3)
+                            && ValidateSegment(seq4)
+                                && ValidateSegment(seq5)
+                                    && ValidKey(segment1, segment2, segment3, segment4, segment5);
             }
 
             catch { return false; }
@@ -136,7 +136,7 @@ namespace BarbezDotEu.License.Verification
                 int n4 = segment[4];
 
                 // Segment has to match:
-                if (((n0 + n2 + n4) - (n1 + n3)) == resultingSum) return true;
+                if (((n0 + n2 + n4) - (n1 + n3)) == Math.Floor(resultingSum / Math.Floor(multiplier60))) return true;
             }
 
             return false;
