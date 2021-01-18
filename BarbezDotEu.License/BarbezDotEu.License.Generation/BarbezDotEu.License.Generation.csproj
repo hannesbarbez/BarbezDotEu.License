@@ -7,7 +7,7 @@
     <Product>BarbezDotEu.License.Generation</Product>
     <Copyright>©2021 Hannes Barbez</Copyright>
     <PackageId>BarbezDotEu.License.Generation</PackageId>
-    <Version>1.0.0</Version>
+    <Version>1.1.0</Version>
     <Description>This serial number and license key generator produces keys or serials that are easy to read out loud one human to another. It suits most of serial number or license key needs, employing TPL and supporting async. The algorithm is quick enough to generate a decent number of keys/serials in a short period of time. To verify the generated keys/serials, use the BarbezDotEu.License.Verification package.</Description>
     <PackageTags>license;key;verifier;verificator;generator;generation;serial;number;barbez;async</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
