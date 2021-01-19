@@ -48,6 +48,7 @@ Results will differ for other ResultingSum values. For a value of 68, 30 000 uni
 The going gets tougher when generating 150 000 unique keys in exactly 4 minutes. Lawd.
 
 ## Stats
+*Note: these stats are from the initial version of the NuGet package. Newer versions of the package are quicker, yet the overal trend of the graphs remains.*
 
 A "resulting sum" of 68 takes Y time to render/generate X number of unique keys on a Ryzen 1600 based machine.
 
