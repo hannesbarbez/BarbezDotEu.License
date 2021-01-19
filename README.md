@@ -71,6 +71,7 @@ A "resulting sum" of 68 takes Y time to render/generate X number of unique keys 
 | 150 000 | 240 000 | 1.60 |
 
 ## Graphs
+*Note: these stats are from the initial version of the NuGet package. Newer versions of the package are quicker, yet the overal trend of the graphs remains.*
 
 ![Y time needed (ms) to generate X number of keys.](https://barbez.eu/wp-content/uploads/2020/09/image-4.png)
 ![Y time needed (ms) per key when generating X number of keys.](https://barbez.eu/wp-content/uploads/2020/09/image-3.png)
