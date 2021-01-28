@@ -11,18 +11,12 @@
 <a name='T-BarbezDotEu-License-Generation-KeyGenerator'></a>
 ## KeyGenerator `type`
 
-##### Namespace
-
 BarbezDotEu.License.Generation
-
-##### Summary
 
 Basic key generator class.
 
 <a name='M-BarbezDotEu-License-Generation-KeyGenerator-#ctor-System-Int32,System-String-'></a>
 ### #ctor(resultingSum,divider) `constructor`
-
-##### Summary
 
 Constructs a new [KeyGenerator](#T-BarbezDotEu-License-Generation-KeyGenerator 'BarbezDotEu.License.Generation.KeyGenerator').
 
@@ -36,14 +30,10 @@ Constructs a new [KeyGenerator](#T-BarbezDotEu-License-Generation-KeyGenerator '
 <a name='F-BarbezDotEu-License-Generation-KeyGenerator-EXCEPTION'></a>
 ### EXCEPTION `constants`
 
-##### Summary
-
 One or more parameters are invalid. NULL, negative, empty or default values are not valid parameters.
 
 <a name='M-BarbezDotEu-License-Generation-KeyGenerator-GenerateKeys-System-UInt32,System-String[]-'></a>
 ### GenerateKeys(numberOfKeys,excludedKeys) `method`
-
-##### Summary
 
 Generates a number of license keys.
 

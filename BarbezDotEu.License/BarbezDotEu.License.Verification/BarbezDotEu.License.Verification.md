@@ -14,18 +14,12 @@
 <a name='T-BarbezDotEu-License-Verification-KeyVerificator'></a>
 ## KeyVerificator `type`
 
-##### Namespace
-
 BarbezDotEu.License.Verification
-
-##### Summary
 
 Basic key verifier class.
 
 <a name='M-BarbezDotEu-License-Verification-KeyVerificator-#ctor-System-Int32,System-String-'></a>
 ### #ctor(resultingSum,divider) `constructor`
-
-##### Summary
 
 Constructs a new basic key verifier (verificator, lat.)
 
@@ -39,14 +33,10 @@ Constructs a new basic key verifier (verificator, lat.)
 <a name='F-BarbezDotEu-License-Verification-KeyVerificator-EXCEPTION'></a>
 ### EXCEPTION `constants`
 
-##### Summary
-
 One or more parameters are invalid. NULL, negative, empty or default values are not valid parameters.
 
 <a name='M-BarbezDotEu-License-Verification-KeyVerificator-ValidKey-System-String,System-String,System-String,System-String,System-String-'></a>
 ### ValidKey() `method`
-
-##### Summary
 
 Checks if inputted key is valid
 
@@ -60,8 +50,6 @@ This method has no parameters.
 
 <a name='M-BarbezDotEu-License-Verification-KeyVerificator-ValidateSegment-System-String-'></a>
 ### ValidateSegment(segment) `method`
-
-##### Summary
 
 Checks if a segment valid.
 
@@ -78,8 +66,6 @@ True if valid, false if invalid.
 <a name='M-BarbezDotEu-License-Verification-KeyVerificator-VerifyKey-System-String,System-String,System-String,System-String,System-String-'></a>
 ### VerifyKey() `method`
 
-##### Summary
-
 Checks if a key is valid as well as all of its segments.
 
 ##### Returns
@@ -92,8 +78,6 @@ This method has no parameters.
 
 <a name='M-BarbezDotEu-License-Verification-KeyVerificator-VerifyKey-System-String-'></a>
 ### VerifyKey(key) `method`
-
-##### Summary
 
 Verifies a given key.
 
