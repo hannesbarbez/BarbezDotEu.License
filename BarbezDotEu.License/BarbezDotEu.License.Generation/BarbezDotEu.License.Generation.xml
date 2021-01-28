@@ -4,6 +4,16 @@
         <name>BarbezDotEu.License.Generation</name>
     </assembly>
     <members>
+        <member name="T:BarbezDotEu.License.Generation.KeyGenerator">
+            <summary>
+            Basic key generator class.
+            </summary>
+        </member>
+        <member name="F:BarbezDotEu.License.Generation.KeyGenerator.EXCEPTION">
+            <summary>
+            One or more parameters are invalid. NULL, negative, empty or default values are not valid parameters.
+            </summary>
+        </member>
         <member name="M:BarbezDotEu.License.Generation.KeyGenerator.#ctor(System.Int32,System.String)">
             <summary>
             Constructs a new <see cref="T:BarbezDotEu.License.Generation.KeyGenerator"/>.

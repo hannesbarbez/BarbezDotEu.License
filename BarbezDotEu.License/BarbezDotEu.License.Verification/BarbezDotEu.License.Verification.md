@@ -4,9 +4,12 @@
 ## Contents
 
 - [KeyVerificator](#T-BarbezDotEu-License-Verification-KeyVerificator 'BarbezDotEu.License.Verification.KeyVerificator')
+  - [#ctor(resultingSum,divider)](#M-BarbezDotEu-License-Verification-KeyVerificator-#ctor-System-Int32,System-String- 'BarbezDotEu.License.Verification.KeyVerificator.#ctor(System.Int32,System.String)')
+  - [EXCEPTION](#F-BarbezDotEu-License-Verification-KeyVerificator-EXCEPTION 'BarbezDotEu.License.Verification.KeyVerificator.EXCEPTION')
   - [ValidKey()](#M-BarbezDotEu-License-Verification-KeyVerificator-ValidKey-System-String,System-String,System-String,System-String,System-String- 'BarbezDotEu.License.Verification.KeyVerificator.ValidKey(System.String,System.String,System.String,System.String,System.String)')
   - [ValidateSegment(segment)](#M-BarbezDotEu-License-Verification-KeyVerificator-ValidateSegment-System-String- 'BarbezDotEu.License.Verification.KeyVerificator.ValidateSegment(System.String)')
   - [VerifyKey()](#M-BarbezDotEu-License-Verification-KeyVerificator-VerifyKey-System-String,System-String,System-String,System-String,System-String- 'BarbezDotEu.License.Verification.KeyVerificator.VerifyKey(System.String,System.String,System.String,System.String,System.String)')
+  - [VerifyKey(key)](#M-BarbezDotEu-License-Verification-KeyVerificator-VerifyKey-System-String- 'BarbezDotEu.License.Verification.KeyVerificator.VerifyKey(System.String)')
 
 <a name='T-BarbezDotEu-License-Verification-KeyVerificator'></a>
 ## KeyVerificator `type`
@@ -14,6 +17,31 @@
 ##### Namespace
 
 BarbezDotEu.License.Verification
+
+##### Summary
+
+Basic key verifier class.
+
+<a name='M-BarbezDotEu-License-Verification-KeyVerificator-#ctor-System-Int32,System-String-'></a>
+### #ctor(resultingSum,divider) `constructor`
+
+##### Summary
+
+Constructs a new basic key verifier (verificator, lat.)
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| resultingSum | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | The resulting sum that has to be met for a key to be valid. |
+| divider | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | The divider (e.g. "-") expected to be found in between different segments of a key. |
+
+<a name='F-BarbezDotEu-License-Verification-KeyVerificator-EXCEPTION'></a>
+### EXCEPTION `constants`
+
+##### Summary
+
+One or more parameters are invalid. NULL, negative, empty or default values are not valid parameters.
 
 <a name='M-BarbezDotEu-License-Verification-KeyVerificator-ValidKey-System-String,System-String,System-String,System-String,System-String-'></a>
 ### ValidKey() `method`
@@ -61,3 +89,20 @@ True if the key is valid; false otherwise.
 ##### Parameters
 
 This method has no parameters.
+
+<a name='M-BarbezDotEu-License-Verification-KeyVerificator-VerifyKey-System-String-'></a>
+### VerifyKey(key) `method`
+
+##### Summary
+
+Verifies a given key.
+
+##### Returns
+
+TRUE if the key is valid. False, otherwise.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| key | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | The key to verify. |

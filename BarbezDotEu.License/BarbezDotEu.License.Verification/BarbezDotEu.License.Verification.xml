@@ -4,11 +4,35 @@
         <name>BarbezDotEu.License.Verification</name>
     </assembly>
     <members>
+        <member name="T:BarbezDotEu.License.Verification.KeyVerificator">
+            <summary>
+            Basic key verifier class.
+            </summary>
+        </member>
+        <member name="F:BarbezDotEu.License.Verification.KeyVerificator.EXCEPTION">
+            <summary>
+            One or more parameters are invalid. NULL, negative, empty or default values are not valid parameters.
+            </summary>
+        </member>
+        <member name="M:BarbezDotEu.License.Verification.KeyVerificator.#ctor(System.Int32,System.String)">
+            <summary>
+            Constructs a new basic key verifier (verificator, lat.)
+            </summary>
+            <param name="resultingSum">The resulting sum that has to be met for a key to be valid.</param>
+            <param name="divider">The divider (e.g. "-") expected to be found in between different segments of a key.</param>
+        </member>
         <member name="M:BarbezDotEu.License.Verification.KeyVerificator.VerifyKey(System.String,System.String,System.String,System.String,System.String)">
             <summary>
             Checks if a key is valid as well as all of its segments.
             </summary>
             <returns>True if the key is valid; false otherwise.</returns>
+        </member>
+        <member name="M:BarbezDotEu.License.Verification.KeyVerificator.VerifyKey(System.String)">
+            <summary>
+            Verifies a given key.
+            </summary>
+            <param name="key">The key to verify.</param>
+            <returns>TRUE if the key is valid. False, otherwise.</returns>
         </member>
         <member name="M:BarbezDotEu.License.Verification.KeyVerificator.ValidKey(System.String,System.String,System.String,System.String,System.String)">
             <summary>
