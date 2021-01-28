@@ -15,6 +15,7 @@
     <PackageProjectUrl>https://barbez.eu</PackageProjectUrl>
     <PackageOutputPath>./nupkg</PackageOutputPath>
     <RepositoryUrl>https://github.com/hannesbarbez/BarbezDotEu.License</RepositoryUrl>
+    <RepositoryType>GIT</RepositoryType>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 </Project>
