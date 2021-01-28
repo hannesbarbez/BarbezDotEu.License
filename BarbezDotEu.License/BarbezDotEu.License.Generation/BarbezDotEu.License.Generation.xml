@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BarbezDotEu.License.Generation</name>
+    </assembly>
+    <members>
+        <member name="M:BarbezDotEu.License.Generation.KeyGenerator.#ctor(System.Int32,System.String)">
+            <summary>
+            Constructs a new <see cref="T:BarbezDotEu.License.Generation.KeyGenerator"/>.
+            </summary>
+            <param name="resultingSum">The expected "sum" of the key. All keys share the same "sum", which is what makes the key validatable. Negative or default values are not valid.</param>
+            <param name="divider">The desored division in between segments of the license key.</param>
+        </member>
+        <member name="M:BarbezDotEu.License.Generation.KeyGenerator.GenerateKeys(System.UInt32,System.String[])">
+            <summary>
+            Generates a number of license keys.
+            </summary>
+            <param name="numberOfKeys">The amount of keys to generate.</param>
+            <param name="excludedKeys">Keys that cannot be present in the resulting key set.</param>
+            <returns>The generated license keys.</returns>
+        </member>
+    </members>
+</doc>
