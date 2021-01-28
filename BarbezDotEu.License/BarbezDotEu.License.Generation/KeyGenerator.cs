@@ -9,13 +9,19 @@ using System.Threading.Tasks;
 
 namespace BarbezDotEu.License.Generation
 {
+    /// <summary>
+    /// Basic key generator class.
+    /// </summary>
     public class KeyGenerator
     {
+        /// <summary>
+        /// One or more parameters are invalid. NULL, negative, empty or default values are not valid parameters.
+        /// </summary>
+        public const string EXCEPTION = "One or more parameters are invalid. NULL, negative, empty or default values are not valid parameters.";
         private readonly int resultingSum;
         private readonly decimal modulo25;
         private readonly decimal multiplier60;
         private readonly int upper;
-        public const string EXCEPTION = "One or more parameters are invalid. NULL, negative, empty or default values are not valid parameters.";
         private static ConcurrentBag<string> keys;
         private readonly string divider;
 
