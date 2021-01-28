@@ -5,14 +5,25 @@ using System;
 
 namespace BarbezDotEu.License.Verification
 {
+    /// <summary>
+    /// Basic key verifier class.
+    /// </summary>
     public class KeyVerificator
     {
+        /// <summary>
+        /// One or more parameters are invalid. NULL, negative, empty or default values are not valid parameters.
+        /// </summary>
         public const string EXCEPTION = "One or more parameters are invalid. NULL, empty or default values are not permitted parameters.";
         private const int SYMMETRICLENGTH = 5;
         private readonly int resultingSum;
         private readonly string divider;
         private readonly decimal multiplier60;
 
+        /// <summary>
+        /// Constructs a new basic key verifier (verificator, lat.)
+        /// </summary>
+        /// <param name="resultingSum">The resulting sum that has to be met for a key to be valid.</param>
+        /// <param name="divider">The divider (e.g. "-") expected to be found in between different segments of a key.</param>
         public KeyVerificator(int resultingSum, string divider)
         {
             if (string.IsNullOrWhiteSpace(divider) || resultingSum == default)
@@ -68,6 +79,11 @@ namespace BarbezDotEu.License.Verification
             }
         }
 
+        /// <summary>
+        /// Verifies a given key.
+        /// </summary>
+        /// <param name="key">The key to verify.</param>
+        /// <returns>TRUE if the key is valid. False, otherwise.</returns>
         public bool VerifyKey(string key)
         {
             if (string.IsNullOrWhiteSpace(key))
