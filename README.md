@@ -17,10 +17,10 @@ The Barbez.eu license key generator is ideal for all your license key or serial 
 ## NuGet Packages and Demo app
 
 Get the **generator** NuGet package from https://www.nuget.org/packages/BarbezDotEu.License.Generation/ or use 
-> Install-Package BarbezDotEu.License.Generation -Version 1.2.0
+> Install-Package BarbezDotEu.License.Generation -Version 1.2.1
 
 Get the **verifier** NuGet package from https://www.nuget.org/packages/BarbezDotEu.License.Verification/ or use
-> Install-Package BarbezDotEu.License.Verification -Version 1.2.0
+> Install-Package BarbezDotEu.License.Verification -Version 1.2.1
 
 A demo project using this generic library can be found at https://github.com/hannesbarbez/BarbezDotEu.License.Generator.WinForms.
 
