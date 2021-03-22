@@ -217,3 +217,5 @@ TRUE if the key is valid. False, otherwise.
 | ---- | ---- | ----------- |
 | key | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | The key to verify. |
 
+## Author
+www.barbez.eu
