@@ -217,5 +217,10 @@ TRUE if the key is valid. False, otherwise.
 | ---- | ---- | ----------- |
 | key | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | The key to verify. |
 
+# Mild disclaimer
+The code in this repository was written for and used within a variety of Barbez.eu apps distributed via Amazon.com in the late 2010's.
+
+If you're looking for a license key generator that is "uncrackable", this is one is not for you. You can however consider using it as a base for your own license key generator, perhaps.
+
 ## Author
 www.barbez.eu
