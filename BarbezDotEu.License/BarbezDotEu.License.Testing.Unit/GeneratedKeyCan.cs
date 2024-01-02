@@ -23,7 +23,7 @@ namespace BarbezDotEu.License.Testing.Unit
         public void BeVerified()
         {
             // Check numberOfKeys matches
-            var numberOfKeys = 100000;
+            var numberOfKeys = 150000;
             var excludedKeys = Array.Empty<string>();
             var watch = Stopwatch.StartNew();
             var keys = KeyGenerator.GenerateKeys((uint)numberOfKeys, excludedKeys);

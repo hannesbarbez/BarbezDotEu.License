@@ -5,6 +5,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 
 namespace BarbezDotEu.License.Generation
@@ -43,7 +44,6 @@ namespace BarbezDotEu.License.Generation
             var multiplier60 = Math.Floor(resultingSum / new decimal(60));
             this.upper = (int)Math.Floor(90 - (modulo25 / 3));
             this.expectedResult = Math.Floor(resultingSum / multiplier60);
-
         }
 
         /// <summary>
@@ -63,11 +63,10 @@ namespace BarbezDotEu.License.Generation
             ConcurrentBag<string> keys = [];
             Parallel.For(default, numberOfKeys, x =>
             {
-                var random = new Random();
                 var validKey = false;
                 while (!validKey)
                 {
-                    var key = this.GenerateKey(random);
+                    var key = this.GenerateKey();
                     validKey = !keys.Contains(key) && !excludedKeys.Contains(key);
                     if (validKey)
                     {
@@ -79,36 +78,36 @@ namespace BarbezDotEu.License.Generation
             return keys;
         }
 
-        private string GenerateKey(Random random)
+        private string GenerateKey()
         {
-            var seq1 = GetSequence(random);
-            var seq2 = GetSequence(random);
-            var seq3 = GetSequence(random);
-            var seq4 = GetSequence(random);
-            var seq5 = GetSequence(random);
+            var seq1 = GetSequence();
+            var seq2 = GetSequence();
+            var seq3 = GetSequence();
+            var seq4 = GetSequence();
+            var seq5 = GetSequence();
 
-            var pt1 = $"{((char)seq1[0])}{((char)seq2[0])}{((char)seq3[0])}{((char)seq4[0])}{((char)seq5[0])}";
-            var pt2 = $"{((char)seq1[1])}{((char)seq2[1])}{((char)seq3[1])}{((char)seq4[1])}{((char)seq5[1])}";
-            var pt3 = $"{((char)seq1[2])}{((char)seq2[2])}{((char)seq3[2])}{((char)seq4[2])}{((char)seq5[2])}";
-            var pt4 = $"{((char)seq1[3])}{((char)seq2[3])}{((char)seq3[3])}{((char)seq4[3])}{((char)seq5[3])}";
-            var pt5 = $"{((char)seq1[4])}{((char)seq2[4])}{((char)seq3[4])}{((char)seq4[4])}{((char)seq5[4])}";
+            var pt1 = $"{(char)seq1[0]}{(char)seq2[0]}{(char)seq3[0]}{(char)seq4[0]}{(char)seq5[0]}";
+            var pt2 = $"{(char)seq1[1]}{(char)seq2[1]}{(char)seq3[1]}{(char)seq4[1]}{(char)seq5[1]}";
+            var pt3 = $"{(char)seq1[2]}{(char)seq2[2]}{(char)seq3[2]}{(char)seq4[2]}{(char)seq5[2]}";
+            var pt4 = $"{(char)seq1[3]}{(char)seq2[3]}{(char)seq3[3]}{(char)seq4[3]}{(char)seq5[3]}";
+            var pt5 = $"{(char)seq1[4]}{(char)seq2[4]}{(char)seq3[4]}{(char)seq4[4]}{(char)seq5[4]}";
             return pt1 + divider + pt2 + divider + pt3 + divider + pt4 + divider + pt5;
         }
 
-        private int[] GetSequence(Random random)
+        private int[] GetSequence()
         {
             int tempResult = 0, n0 = 0, n1 = 0, n2 = 0, n3 = 0, n4 = 0;
             while (tempResult != expectedResult)
             {
                 // 48 = 0; 90 = Z; 57 = 9; 65 = A.
-                n0 = random.Next(48, 57 - 2);
-                n1 = random.Next(n0 + 2, 57);
-                n2 = random.Next(65, this.upper - 3);
-                n3 = random.Next(n2 + 2, this.upper - 2);
-                n4 = random.Next(n3 + 2, this.upper);
+                n0 = RandomNumberGenerator.GetInt32(48, 57 - 2);
+                n1 = RandomNumberGenerator.GetInt32(n0 + 2, 57);
+                n2 = RandomNumberGenerator.GetInt32(65, this.upper - 3);
+                n3 = RandomNumberGenerator.GetInt32(n2, this.upper - 2);
+                n4 = RandomNumberGenerator.GetInt32(n3 + 2, this.upper);
 
                 // Sequence has to match the following formula.
-                tempResult = (n0 + n2 + n4) - (n1 + n3);
+                tempResult = n0 + n2 + n4 - (n1 + n3);
             }
 
             return [n0, n1, n2, n3, n4];

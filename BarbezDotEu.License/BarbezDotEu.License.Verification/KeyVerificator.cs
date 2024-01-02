@@ -53,10 +53,10 @@ namespace BarbezDotEu.License.Verification
 
                 return ValidateSegment(seq1)
                     && ValidateSegment(seq2)
-                        && ValidateSegment(seq3)
-                            && ValidateSegment(seq4)
-                                && ValidateSegment(seq5)
-                                    && ValidKey(segment1, segment2, segment3, segment4, segment5);
+                    && ValidateSegment(seq3)
+                    && ValidateSegment(seq4)
+                    && ValidateSegment(seq5)
+                    && ValidKey(segment1, segment2, segment3, segment4, segment5);
             }
 
             catch { return false; }
@@ -127,13 +127,7 @@ namespace BarbezDotEu.License.Verification
             }
 
             // Entire key has to match:
-            if (i1 < i2)
-                if (i2 < i3)
-                    if (i3 < i4)
-                        if (i4 < i5)
-                            return true;
-
-            return false;
+            return (i1 < i2) && (i2 < i3) && (i3 < i4) && (i4 < i5);
         }
 
         /// <summary>
@@ -152,7 +146,7 @@ namespace BarbezDotEu.License.Verification
                 int n4 = segment[4];
 
                 // Segment has to match:
-                if (((n0 + n2 + n4) - (n1 + n3)) == Math.Floor(resultingSum / Math.Floor(multiplier60))) return true;
+                return (n0 + n2 + n4 - (n1 + n3)) == Math.Floor(resultingSum / Math.Floor(multiplier60));
             }
 
             return false;
