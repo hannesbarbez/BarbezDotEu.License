@@ -15,8 +15,9 @@ namespace BarbezDotEu.License.Verification
         /// </summary>
         public const string EXCEPTION = "One or more parameters are invalid. NULL, empty or default values are not permitted parameters.";
         private const int SYMMETRICLENGTH = 5;
+        private readonly int resultingSum;
         private readonly string divider;
-        private readonly decimal expectedResult;
+        private readonly decimal multiplier60;
 
         /// <summary>
         /// Constructs a new basic key verifier (verificator, lat.)
@@ -30,9 +31,9 @@ namespace BarbezDotEu.License.Verification
                 throw new ArgumentException(EXCEPTION);
             }
 
+            this.resultingSum = resultingSum;
             this.divider = divider;
-            var multiplier60 = resultingSum / new decimal(60);
-            this.expectedResult = Math.Floor(resultingSum / Math.Floor(multiplier60));
+            this.multiplier60 = resultingSum / new decimal(60);
         }
 
         /// <summary>
@@ -52,10 +53,10 @@ namespace BarbezDotEu.License.Verification
 
                 return ValidateSegment(seq1)
                     && ValidateSegment(seq2)
-                    && ValidateSegment(seq3)
-                    && ValidateSegment(seq4)
-                    && ValidateSegment(seq5)
-                    && ValidKey(segment1, segment2, segment3, segment4, segment5);
+                        && ValidateSegment(seq3)
+                            && ValidateSegment(seq4)
+                                && ValidateSegment(seq5)
+                                    && ValidKey(segment1, segment2, segment3, segment4, segment5);
             }
 
             catch { return false; }
@@ -90,7 +91,7 @@ namespace BarbezDotEu.License.Verification
                 throw new ArgumentException(EXCEPTION);
             }
 
-            var segments = key.Split(this.divider, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+            var segments = key.Trim().Split(this.divider);
             if (segments.Length != SYMMETRICLENGTH)
             {
                 throw new ArgumentException(EXCEPTION);
@@ -105,14 +106,14 @@ namespace BarbezDotEu.License.Verification
         /// <returns>True if valid, false if invalid.</returns>
         private static bool ValidKey(string segment1, string segment2, string segment3, string segment4, string segment5)
         {
+            int i1 = 0;
+            int i2 = 0;
+            int i3 = 0;
+            int i4 = 0;
+            int i5 = 0;
+
             if ((segment1 + segment2 + segment3 + segment4 + segment5).Length == SYMMETRICLENGTH * SYMMETRICLENGTH)
             {
-                int i1 = 0;
-                int i2 = 0;
-                int i3 = 0;
-                int i4 = 0;
-                int i5 = 0;
-
                 foreach (char c in segment1)
                     i1 += c;
                 foreach (char c in segment2)
@@ -123,10 +124,14 @@ namespace BarbezDotEu.License.Verification
                     i4 += c;
                 foreach (char c in segment5)
                     i5 += c;
-
-                // Entire key has to match:
-                return i1 < i2 && i2 < i3 && i3 < i4 && i4 < i5;
             }
+
+            // Entire key has to match:
+            if (i1 < i2)
+                if (i2 < i3)
+                    if (i3 < i4)
+                        if (i4 < i5)
+                            return true;
 
             return false;
         }
@@ -147,7 +152,7 @@ namespace BarbezDotEu.License.Verification
                 int n4 = segment[4];
 
                 // Segment has to match:
-                return (n0 + n2 + n4 - (n1 + n3)) == expectedResult;
+                if (((n0 + n2 + n4) - (n1 + n3)) == Math.Floor(resultingSum / Math.Floor(multiplier60))) return true;
             }
 
             return false;

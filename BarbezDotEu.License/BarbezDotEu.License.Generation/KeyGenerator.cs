@@ -21,7 +21,6 @@ namespace BarbezDotEu.License.Generation
         private readonly decimal modulo25;
         private readonly int upper;
         private readonly decimal expectedResult;
-        private readonly Random random;
         private readonly string divider;
 
         /// <summary>
@@ -44,7 +43,7 @@ namespace BarbezDotEu.License.Generation
             var multiplier60 = Math.Floor(resultingSum / new decimal(60));
             this.upper = (int)Math.Floor(90 - (modulo25 / 3));
             this.expectedResult = Math.Floor(resultingSum / multiplier60);
-            this.random = new Random();
+
         }
 
         /// <summary>
@@ -87,16 +86,17 @@ namespace BarbezDotEu.License.Generation
             var seq4 = GetSequence();
             var seq5 = GetSequence();
 
-            var pt1 = $"{(char)seq1[0]}{(char)seq2[0]}{(char)seq3[0]}{(char)seq4[0]}{(char)seq5[0]}";
-            var pt2 = $"{(char)seq1[1]}{(char)seq2[1]}{(char)seq3[1]}{(char)seq4[1]}{(char)seq5[1]}";
-            var pt3 = $"{(char)seq1[2]}{(char)seq2[2]}{(char)seq3[2]}{(char)seq4[2]}{(char)seq5[2]}";
-            var pt4 = $"{(char)seq1[3]}{(char)seq2[3]}{(char)seq3[3]}{(char)seq4[3]}{(char)seq5[3]}";
-            var pt5 = $"{(char)seq1[4]}{(char)seq2[4]}{(char)seq3[4]}{(char)seq4[4]}{(char)seq5[4]}";
+            var pt1 = $"{((char)seq1[0])}{((char)seq2[0])}{((char)seq3[0])}{((char)seq4[0])}{((char)seq5[0])}";
+            var pt2 = $"{((char)seq1[1])}{((char)seq2[1])}{((char)seq3[1])}{((char)seq4[1])}{((char)seq5[1])}";
+            var pt3 = $"{((char)seq1[2])}{((char)seq2[2])}{((char)seq3[2])}{((char)seq4[2])}{((char)seq5[2])}";
+            var pt4 = $"{((char)seq1[3])}{((char)seq2[3])}{((char)seq3[3])}{((char)seq4[3])}{((char)seq5[3])}";
+            var pt5 = $"{((char)seq1[4])}{((char)seq2[4])}{((char)seq3[4])}{((char)seq4[4])}{((char)seq5[4])}";
             return pt1 + divider + pt2 + divider + pt3 + divider + pt4 + divider + pt5;
         }
 
         private int[] GetSequence()
         {
+            var random = new Random(Guid.NewGuid().GetHashCode());
             int tempResult = 0, n0 = 0, n1 = 0, n2 = 0, n3 = 0, n4 = 0;
             while (tempResult != expectedResult)
             {
@@ -108,7 +108,7 @@ namespace BarbezDotEu.License.Generation
                 n4 = random.Next(n3 + 2, this.upper);
 
                 // Sequence has to match the following formula.
-                tempResult = n0 + n2 + n4 - (n1 + n3);
+                tempResult = (n0 + n2 + n4) - (n1 + n3);
             }
 
             return [n0, n1, n2, n3, n4];
