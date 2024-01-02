@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Authors>Hannes Barbez</Authors>
     <Company>Hannes Barbez</Company>
     <Title>BarbezDotEu.License.Generation</Title>
     <Product>BarbezDotEu.License.Generation</Product>
     <PackageId>BarbezDotEu.License.Generation</PackageId>
-    <Copyright>©2021 Hannes Barbez</Copyright>
-    <Version>1.2.2</Version>
+    <Copyright>©2024 Hannes Barbez</Copyright>
+    <Version>2.0.0</Version>
     <Description>This serial number and license key generator produces keys or serials that are easy to read out loud one human to another. It suits most of serial number or license key needs, employing TPL and supporting async. The algorithm is quick enough to generate a decent number of keys/serials in a short period of time. To verify the generated keys/serials, use the BarbezDotEu.License.Verification package.</Description>
     <PackageTags>license;key;verifier;verificator;generator;generation;serial;number;barbez;async</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -16,8 +16,13 @@
     <PackageOutputPath>./nupkg</PackageOutputPath>
     <RepositoryUrl>https://github.com/hannesbarbez/BarbezDotEu.License</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
-    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <PackageIconUrl>https://i2.wp.com/barbez.eu/wp-content/uploads/2020/02/cropped-BarbezDotEu-logo-1.png?resize=64%2C64</PackageIconUrl>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>ICON.png</PackageIcon>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
+    <ItemGroup>
+        <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+        <None Include="..\..\ICON.png" Pack="true" PackagePath="\" />
+    </ItemGroup>
 </Project>

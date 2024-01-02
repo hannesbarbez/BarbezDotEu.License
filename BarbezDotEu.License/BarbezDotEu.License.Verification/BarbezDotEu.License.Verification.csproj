@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Authors>Hannes Barbez</Authors>
     <Company>Hannes Barbez</Company>
     <Title>BarbezDotEu.License.Verification</Title>
     <Product>BarbezDotEu.License.Verification</Product>
     <PackageId>BarbezDotEu.License.Verification</PackageId>
-    <Copyright>©2021 Hannes Barbez</Copyright>
-    <Version>1.2.2</Version>
+    <Copyright>©2024 Hannes Barbez</Copyright>
+    <Version>2.0.0</Version>
     <Description>Verifies serial numbers or license keys generated using BarbezDotEu.License.Generation. The generator is suited for most of your license key or serial number needs, using TPL and async. The generator produces keys or serials that are easy to read out loud one human to another. At the same time, the algorithm is quick enough to generate a decent amount of them in a short period of time.</Description>
     <PackageTags>license;key;verifier;verificator;generator;generation;serial;number;barbez;async</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -17,5 +17,13 @@
     <RepositoryUrl>https://github.com/hannesbarbez/BarbezDotEu.License</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>ICON.png</PackageIcon>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
+    <ItemGroup>
+        <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+        <None Include="..\..\ICON.png" Pack="true" PackagePath="\" />
+    </ItemGroup>
 </Project>
