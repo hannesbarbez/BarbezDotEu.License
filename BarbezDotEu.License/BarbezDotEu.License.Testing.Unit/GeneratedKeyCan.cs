@@ -2,6 +2,7 @@
 // Licensed under the GNU General Public License v3.0
 
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using BarbezDotEu.License.Generation;
@@ -22,11 +23,13 @@ namespace BarbezDotEu.License.Testing.Unit
         public void BeVerified()
         {
             // Check numberOfKeys matches
-            var numberOfKeys = 10000;
+            var numberOfKeys = 100000;
             var excludedKeys = Array.Empty<string>();
+            var watch = Stopwatch.StartNew();
             var keys = KeyGenerator.GenerateKeys((uint)numberOfKeys, excludedKeys);
+            watch.Stop();
+            Console.WriteLine($"{watch.ElapsedMilliseconds / 1000}s for {numberOfKeys} keys.");
             Assert.AreEqual(numberOfKeys, keys.Count());
-
             // Check keys can be verified
             Parallel.ForEach(keys, key =>
             {

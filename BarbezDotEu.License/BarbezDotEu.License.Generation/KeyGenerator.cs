@@ -63,10 +63,11 @@ namespace BarbezDotEu.License.Generation
             ConcurrentBag<string> keys = [];
             Parallel.For(default, numberOfKeys, x =>
             {
+                var random = new Random();
                 var validKey = false;
                 while (!validKey)
                 {
-                    var key = this.GenerateKey();
+                    var key = this.GenerateKey(random);
                     validKey = !keys.Contains(key) && !excludedKeys.Contains(key);
                     if (validKey)
                     {
@@ -78,13 +79,13 @@ namespace BarbezDotEu.License.Generation
             return keys;
         }
 
-        private string GenerateKey()
+        private string GenerateKey(Random random)
         {
-            var seq1 = GetSequence();
-            var seq2 = GetSequence();
-            var seq3 = GetSequence();
-            var seq4 = GetSequence();
-            var seq5 = GetSequence();
+            var seq1 = GetSequence(random);
+            var seq2 = GetSequence(random);
+            var seq3 = GetSequence(random);
+            var seq4 = GetSequence(random);
+            var seq5 = GetSequence(random);
 
             var pt1 = $"{((char)seq1[0])}{((char)seq2[0])}{((char)seq3[0])}{((char)seq4[0])}{((char)seq5[0])}";
             var pt2 = $"{((char)seq1[1])}{((char)seq2[1])}{((char)seq3[1])}{((char)seq4[1])}{((char)seq5[1])}";
@@ -94,9 +95,8 @@ namespace BarbezDotEu.License.Generation
             return pt1 + divider + pt2 + divider + pt3 + divider + pt4 + divider + pt5;
         }
 
-        private int[] GetSequence()
+        private int[] GetSequence(Random random)
         {
-            var random = new Random(Guid.NewGuid().GetHashCode());
             int tempResult = 0, n0 = 0, n1 = 0, n2 = 0, n3 = 0, n4 = 0;
             while (tempResult != expectedResult)
             {
