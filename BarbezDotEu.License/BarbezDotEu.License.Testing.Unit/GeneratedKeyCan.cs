@@ -2,6 +2,7 @@
 // Licensed under the GNU General Public License v3.0
 
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using BarbezDotEu.License.Generation;
 using BarbezDotEu.License.Verification;
@@ -18,13 +19,13 @@ namespace BarbezDotEu.License.Testing.Unit
         private static readonly KeyVerificator keyVerificator = new(ScrOneResultingSum, DIVIDER);
 
         [TestMethod]
-        public async Task BeVerified()
+        public void BeVerified()
         {
             // Check numberOfKeys matches
             var numberOfKeys = 10000;
             var excludedKeys = Array.Empty<string>();
-            var keys = await KeyGenerator.GenerateKeys((uint)numberOfKeys, excludedKeys);
-            Assert.AreEqual(numberOfKeys, keys.Length);
+            var keys = KeyGenerator.GenerateKeys((uint)numberOfKeys, excludedKeys);
+            Assert.AreEqual(numberOfKeys, keys.Count());
 
             // Check keys can be verified
             Parallel.ForEach(keys, key =>

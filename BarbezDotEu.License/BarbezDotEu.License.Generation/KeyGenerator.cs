@@ -18,11 +18,9 @@ namespace BarbezDotEu.License.Generation
         /// One or more parameters are invalid. NULL, negative, empty or default values are not valid parameters.
         /// </summary>
         public const string EXCEPTION = "One or more parameters are invalid. NULL, negative, empty or default values are not valid parameters.";
-        private readonly int resultingSum;
         private readonly decimal modulo25;
-        private readonly decimal multiplier60;
         private readonly int upper;
-        private static ConcurrentBag<string> keys;
+        private readonly decimal expectedResult;
         private readonly string divider;
 
         /// <summary>
@@ -37,13 +35,15 @@ namespace BarbezDotEu.License.Generation
                 throw new ArgumentException(EXCEPTION);
             }
 
-            this.resultingSum = resultingSum;
+            //this.resultingSum = resultingSum;
             this.divider = divider;
 
             // 0-25 = 26 letters of English alphabet.
             this.modulo25 = resultingSum % 25;
-            this.multiplier60 = Math.Floor(resultingSum / new decimal(60));
+            var multiplier60 = Math.Floor(resultingSum / new decimal(60));
             this.upper = (int)Math.Floor(90 - (modulo25 / 3));
+            this.expectedResult = Math.Floor(resultingSum / multiplier60);
+
         }
 
         /// <summary>
@@ -52,33 +52,30 @@ namespace BarbezDotEu.License.Generation
         /// <param name="numberOfKeys">The amount of keys to generate.</param>
         /// <param name="excludedKeys">Keys that cannot be present in the resulting key set.</param>
         /// <returns>The generated license keys.</returns>
-        public async Task<string[]> GenerateKeys(uint numberOfKeys, string[] excludedKeys)
+        public IEnumerable<string> GenerateKeys(uint numberOfKeys, IEnumerable<string> excludedKeys)
         {
             if (numberOfKeys == default)
             {
                 throw new ArgumentException(EXCEPTION);
             }
 
-            var excluded = new HashSet<string>(excludedKeys.Where(x => !string.IsNullOrWhiteSpace(x)).Select(x => x.Trim()));
-            keys = [];
-            return await Task.Run(() =>
+            excludedKeys = new HashSet<string>(excludedKeys.Select(x => x.Trim()).Where(x => !string.IsNullOrWhiteSpace(x)));
+            ConcurrentBag<string> keys = [];
+            Parallel.For(default, numberOfKeys, x =>
             {
-                Parallel.For(default, numberOfKeys, x =>
+                var validKey = false;
+                while (!validKey)
                 {
-                    var validKey = false;
-                    while (!validKey)
+                    var key = this.GenerateKey();
+                    validKey = !keys.Contains(key) && !excludedKeys.Contains(key);
+                    if (validKey)
                     {
-                        var key = this.GenerateKey();
-                        validKey = !keys.Contains(key) && !excluded.Contains(key);
-                        if (validKey)
-                        {
-                            keys.Add(key);
-                        }
+                        keys.Add(key);
                     }
-                });
-
-                return keys.ToArray();
+                }
             });
+
+            return keys;
         }
 
         private string GenerateKey()
@@ -94,25 +91,24 @@ namespace BarbezDotEu.License.Generation
             var pt3 = $"{((char)seq1[2])}{((char)seq2[2])}{((char)seq3[2])}{((char)seq4[2])}{((char)seq5[2])}";
             var pt4 = $"{((char)seq1[3])}{((char)seq2[3])}{((char)seq3[3])}{((char)seq4[3])}{((char)seq5[3])}";
             var pt5 = $"{((char)seq1[4])}{((char)seq2[4])}{((char)seq3[4])}{((char)seq4[4])}{((char)seq5[4])}";
-            var key = pt1 + divider + pt2 + divider + pt3 + divider + pt4 + divider + pt5;
-            return key;
+            return pt1 + divider + pt2 + divider + pt3 + divider + pt4 + divider + pt5;
         }
 
         private int[] GetSequence()
         {
+            var random = new Random(Guid.NewGuid().GetHashCode());
             int tempResult = 0, n0 = 0, n1 = 0, n2 = 0, n3 = 0, n4 = 0;
-            var calc = Math.Floor(resultingSum / multiplier60);
-            while (tempResult != calc)
+            while (tempResult != expectedResult)
             {
                 // 48 = 0; 90 = Z; 57 = 9; 65 = A.
-                n0 = new Random(Guid.NewGuid().GetHashCode()).Next(48, 57 - 2);
-                n1 = new Random(Guid.NewGuid().GetHashCode()).Next(n0 + 2, 57);
-                n2 = new Random(Guid.NewGuid().GetHashCode()).Next(65, this.upper - 3);
-                n3 = new Random(Guid.NewGuid().GetHashCode()).Next(n2 + 2, this.upper - 2);
-                n4 = new Random(Guid.NewGuid().GetHashCode()).Next(n3 + 2, this.upper);
+                n0 = random.Next(48, 57 - 2);
+                n1 = random.Next(n0 + 2, 57);
+                n2 = random.Next(65, this.upper - 3);
+                n3 = random.Next(n2 + 2, this.upper - 2);
+                n4 = random.Next(n3 + 2, this.upper);
 
                 // Sequence has to match the following formula.
-                tempResult = ((n0 + n2 + n4) - (n1 + n3));
+                tempResult = (n0 + n2 + n4) - (n1 + n3);
             }
 
             return [n0, n1, n2, n3, n4];
