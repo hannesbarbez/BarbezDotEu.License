@@ -8,7 +8,13 @@
     <PackageId>BarbezDotEu.License.Verification</PackageId>
     <Copyright>©2024 Hannes Barbez</Copyright>
     <Version>2.0.0</Version>
-    <Description>Verifies serial numbers or license keys generated using BarbezDotEu.License.Generation. The generator is suited for most of your license key or serial number needs, using TPL and async. The generator produces keys or serials that are easy to read out loud one human to another. At the same time, the algorithm is quick enough to generate a decent amount of them in a short period of time.</Description>
+    <Description>
+        Verifies serial numbers or license keys generated using BarbezDotEu.License.Generation. 
+        The generator is suited for most of your license key or serial number needs, using TPL and async. 
+        The generator produces keys or serials that are easy to read out loud one human to another. 
+        At the same time, the algorithm is quick enough to generate a decent amount of them in a short period of time.
+        Note: if you're looking for a license key generator that is "uncrackable" or "unguessable", this is one is not for you.
+    </Description>
     <PackageTags>license;key;verifier;verificator;generator;generation;serial;number;barbez;async</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
