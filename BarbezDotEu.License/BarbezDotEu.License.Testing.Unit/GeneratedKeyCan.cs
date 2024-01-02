@@ -10,19 +10,15 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace BarbezDotEu.License.Testing.Unit
 {
     [TestClass]
-    public class UnitTests
+    public class GeneratedKeyCan
     {
         private const int ScrOneResultingSum = 68;
         private const string DIVIDER = "-";
         private static readonly KeyGenerator KeyGenerator = new(ScrOneResultingSum, DIVIDER);
         private static readonly KeyVerificator keyVerificator = new(ScrOneResultingSum, DIVIDER);
 
-        // Valid and invalid key samples depend on resulting set.
-        private const string ScrOneValidKeySample = "14022-58565-CDCFA-ORRNQ-TVXPW";
-        private const string ScrOneInvalidKeySample = "14022-58565-CDCFA-ORRNQ-TVXPA";
-
         [TestMethod]
-        public async Task GeneratedKeyCanBeVerifiedAsync()
+        public async Task BeVerified()
         {
             // Check numberOfKeys matches
             var numberOfKeys = 10000;
@@ -36,20 +32,6 @@ namespace BarbezDotEu.License.Testing.Unit
                 var validKey = keyVerificator.VerifyKey(key);
                 Assert.IsTrue(validKey);
             });
-        }
-
-        [TestMethod]
-        public void OlderKeyCanPassVerification()
-        {
-            var validKey = keyVerificator.VerifyKey(ScrOneValidKeySample);
-            Assert.IsTrue(validKey);
-        }
-
-        [TestMethod]
-        public void OlderKeyCanFailVerification()
-        {
-            var validKey = keyVerificator.VerifyKey(ScrOneInvalidKeySample);
-            Assert.IsFalse(validKey);
         }
     }
 }
