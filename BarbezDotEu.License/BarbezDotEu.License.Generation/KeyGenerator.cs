@@ -60,7 +60,7 @@ namespace BarbezDotEu.License.Generation
             }
 
             var excluded = new HashSet<string>(excludedKeys.Where(x => !string.IsNullOrWhiteSpace(x)).Select(x => x.Trim()));
-            keys = new ConcurrentBag<string>();
+            keys = [];
             return await Task.Run(() =>
             {
                 Parallel.For(default, numberOfKeys, x =>
@@ -115,7 +115,7 @@ namespace BarbezDotEu.License.Generation
                 tempResult = ((n0 + n2 + n4) - (n1 + n3));
             }
 
-            return new int[] { n0, n1, n2, n3, n4 };
+            return [n0, n1, n2, n3, n4];
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Hannes Barbez. All rights reserved.
 // Licensed under the GNU General Public License v3.0
 
+using System;
 using System.Threading.Tasks;
 using BarbezDotEu.License.Generation;
 using BarbezDotEu.License.Verification;
@@ -13,8 +14,8 @@ namespace BarbezDotEu.License.Testing.Unit
     {
         private const int ScrOneResultingSum = 68;
         private const string DIVIDER = "-";
-        private static readonly KeyGenerator KeyGenerator = new KeyGenerator(ScrOneResultingSum, DIVIDER);
-        private static readonly KeyVerificator keyVerificator = new KeyVerificator(ScrOneResultingSum, DIVIDER);
+        private static readonly KeyGenerator KeyGenerator = new(ScrOneResultingSum, DIVIDER);
+        private static readonly KeyVerificator keyVerificator = new(ScrOneResultingSum, DIVIDER);
 
         // Valid and invalid key samples depend on resulting set.
         private const string ScrOneValidKeySample = "14022-58565-CDCFA-ORRNQ-TVXPW";
@@ -25,7 +26,7 @@ namespace BarbezDotEu.License.Testing.Unit
         {
             // Check numberOfKeys matches
             var numberOfKeys = 10000;
-            var excludedKeys = new string[] { };
+            var excludedKeys = Array.Empty<string>();
             var keys = await KeyGenerator.GenerateKeys((uint)numberOfKeys, excludedKeys);
             Assert.AreEqual(numberOfKeys, keys.Length);
 

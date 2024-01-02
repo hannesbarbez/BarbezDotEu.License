@@ -42,7 +42,7 @@ namespace BarbezDotEu.License.Verification
         /// <returns>True if the key is valid; false otherwise.</returns>
         public bool VerifyKey(string segment1, string segment2, string segment3, string segment4, string segment5)
         {
-            this.ValidateSegments(segment1, segment2, segment3, segment4, segment5);
+            ValidateSegments(segment1, segment2, segment3, segment4, segment5);
             try
             {
                 string seq1 = $"{segment1[0]}{segment2[0]}{segment3[0]}{segment4[0]}{segment5[0]}";
@@ -62,7 +62,7 @@ namespace BarbezDotEu.License.Verification
             catch { return false; }
         }
 
-        private void ValidateSegments(string segment1, string segment2, string segment3, string segment4, string segment5)
+        private static void ValidateSegments(string segment1, string segment2, string segment3, string segment4, string segment5)
         {
             if (string.IsNullOrWhiteSpace(segment1)
                 || string.IsNullOrWhiteSpace(segment2)
@@ -104,7 +104,7 @@ namespace BarbezDotEu.License.Verification
         /// Checks if inputted key is valid
         /// </summary>
         /// <returns>True if valid, false if invalid.</returns>
-        private bool ValidKey(string segment1, string segment2, string segment3, string segment4, string segment5)
+        private static bool ValidKey(string segment1, string segment2, string segment3, string segment4, string segment5)
         {
             int i1 = 0;
             int i2 = 0;
