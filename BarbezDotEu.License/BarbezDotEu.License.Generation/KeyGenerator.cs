@@ -84,8 +84,6 @@ namespace BarbezDotEu.License.Generation
             {
                 try
                 {
-                    // Theoretically ensures we'll never leave loop unless canceled.
-                    // If canceled, escape loop by setting to loop-ending value.
                     Parallel.For(default, long.MaxValue, parallelOptions, x =>
                     {
                         allKeys.TryAdd(GenerateKey(), default);
