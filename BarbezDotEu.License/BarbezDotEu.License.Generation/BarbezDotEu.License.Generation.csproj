@@ -7,7 +7,7 @@
     <Product>BarbezDotEu.License.Generation</Product>
     <PackageId>BarbezDotEu.License.Generation</PackageId>
     <Copyright>©2024 Hannes Barbez</Copyright>
-    <Version>2.0.0</Version>
+    <Version>3.0.0</Version>
     <Description>
         This serial number and license key generator produces keys or serials that are easy to read out loud one human to another. 
         It suits most of serial number or license key needs, employing TPL and supporting async. 

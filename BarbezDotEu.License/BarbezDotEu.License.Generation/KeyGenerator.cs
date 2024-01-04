@@ -6,6 +6,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BarbezDotEu.License.Generation
@@ -19,10 +20,15 @@ namespace BarbezDotEu.License.Generation
         /// One or more parameters are invalid. NULL, negative, empty or default values are not valid parameters.
         /// </summary>
         public const string EXCEPTION = "One or more parameters are invalid. NULL, negative, empty or default values are not valid parameters.";
-        private readonly decimal modulo25;
-        private readonly int upper;
         private readonly decimal expectedResult;
         private readonly string divider;
+        private readonly int upper;
+        private readonly ConcurrentBag<string> keys = [];
+
+        /// <summary>
+        /// Gets the last set of generated keys.
+        /// </summary>
+        public IEnumerable<string> LastKeySet => keys;
 
         /// <summary>
         /// Constructs a new <see cref="KeyGenerator"/>.
@@ -36,14 +42,12 @@ namespace BarbezDotEu.License.Generation
                 throw new ArgumentException(EXCEPTION);
             }
 
-            //this.resultingSum = resultingSum;
-            this.divider = divider;
-
             // 0-25 = 26 letters of English alphabet.
-            this.modulo25 = resultingSum % 25;
+            decimal modulo25 = resultingSum % 25;
             var multiplier60 = Math.Floor(resultingSum / new decimal(60));
             this.upper = (int)Math.Floor(90 - (modulo25 / 3));
             this.expectedResult = Math.Floor(resultingSum / multiplier60);
+            this.divider = divider;
         }
 
         /// <summary>
@@ -52,30 +56,80 @@ namespace BarbezDotEu.License.Generation
         /// <param name="numberOfKeys">The amount of keys to generate.</param>
         /// <param name="excludedKeys">Keys that cannot be present in the resulting key set.</param>
         /// <returns>The generated license keys.</returns>
-        public IEnumerable<string> GenerateKeys(uint numberOfKeys, IEnumerable<string> excludedKeys)
+        public async Task<IEnumerable<string>> GenerateKeys(int numberOfKeys, IEnumerable<string> excludedKeys)
         {
-            if (numberOfKeys == default)
+            if (numberOfKeys <= 0)
             {
                 throw new ArgumentException(EXCEPTION);
             }
 
-            excludedKeys = new HashSet<string>(excludedKeys.Select(x => x.Trim()).Where(x => !string.IsNullOrWhiteSpace(x)));
-            ConcurrentBag<string> keys = [];
-            Parallel.For(default, numberOfKeys, x =>
+            var excluded = excludedKeys == null ? [] : new ConcurrentBag<string>(new HashSet<string>(excludedKeys.Select(x => x.Trim()).Where(x => !string.IsNullOrWhiteSpace(x))));
+            ConcurrentDictionary<string, object> allKeys = [];
+            keys.Clear();
+            var cancellationTokenSource = new CancellationTokenSource();
+            var parallelOptions = new ParallelOptions { CancellationToken = cancellationTokenSource.Token };
+            var generateKeys = GenerateKeys(parallelOptions, allKeys);
+            var selectKeys = SelectKeys(numberOfKeys, excluded, cancellationTokenSource, parallelOptions, allKeys);
+            generateKeys.Start();
+            selectKeys.Start();
+
+            // One task generates keys in a brute fashion, the other selects the useful ones out.
+            await Task.WhenAll(new Task[] { generateKeys, selectKeys });
+            return keys.Take(numberOfKeys);
+        }
+
+        private Task GenerateKeys(ParallelOptions parallelOptions, ConcurrentDictionary<string, object> allKeys)
+        {
+            return new Task(() =>
             {
-                var validKey = false;
-                while (!validKey)
+                try
                 {
-                    var key = this.GenerateKey();
-                    validKey = !keys.Contains(key) && !excludedKeys.Contains(key);
-                    if (validKey)
+                    // Theoretically ensures we'll never leave loop unless canceled.
+                    // If canceled, escape loop by setting to loop-ending value.
+                    Parallel.For(default, long.MaxValue, parallelOptions, x =>
                     {
-                        keys.Add(key);
-                    }
+                        allKeys.TryAdd(GenerateKey(), default);
+                    });
+                }
+                catch (OperationCanceledException)
+                {
+                    // Do nothing, cancelling is way of communicating we have all needed keys.
                 }
             });
+        }
 
-            return keys;
+        private Task SelectKeys(
+            int numberOfKeys,
+            ConcurrentBag<string> excluded,
+            CancellationTokenSource cancellationTokenSource,
+            ParallelOptions parallelOptions,
+            ConcurrentDictionary<string, object> allKeys)
+        {
+            return new Task(() =>
+            {
+                try
+                {
+                    while (keys.Count < numberOfKeys)
+                    {
+                        var snapshot = new ConcurrentBag<string>(allKeys.Keys);
+                        Parallel.ForEach(snapshot, parallelOptions, key =>
+                        {
+                            if (!excluded.Contains(key))
+                            {
+                                keys.Add(key);
+                                if (keys.Count >= numberOfKeys)
+                                    cancellationTokenSource.Cancel(false);
+
+                                allKeys.TryRemove(key, out _);
+                            }
+                        });
+                    }
+                }
+                catch (OperationCanceledException)
+                {
+                    // Do nothing, cancelling is way of communicating we have all needed keys.
+                }
+            });
         }
 
         private string GenerateKey()
@@ -86,15 +140,15 @@ namespace BarbezDotEu.License.Generation
             var seq4 = GetSequence();
             var seq5 = GetSequence();
 
-            var pt1 = $"{(char)seq1[0]}{(char)seq2[0]}{(char)seq3[0]}{(char)seq4[0]}{(char)seq5[0]}";
-            var pt2 = $"{(char)seq1[1]}{(char)seq2[1]}{(char)seq3[1]}{(char)seq4[1]}{(char)seq5[1]}";
-            var pt3 = $"{(char)seq1[2]}{(char)seq2[2]}{(char)seq3[2]}{(char)seq4[2]}{(char)seq5[2]}";
-            var pt4 = $"{(char)seq1[3]}{(char)seq2[3]}{(char)seq3[3]}{(char)seq4[3]}{(char)seq5[3]}";
-            var pt5 = $"{(char)seq1[4]}{(char)seq2[4]}{(char)seq3[4]}{(char)seq4[4]}{(char)seq5[4]}";
+            var pt1 = $"{seq1[0]}{seq2[0]}{seq3[0]}{seq4[0]}{seq5[0]}";
+            var pt2 = $"{seq1[1]}{seq2[1]}{seq3[1]}{seq4[1]}{seq5[1]}";
+            var pt3 = $"{seq1[2]}{seq2[2]}{seq3[2]}{seq4[2]}{seq5[2]}";
+            var pt4 = $"{seq1[3]}{seq2[3]}{seq3[3]}{seq4[3]}{seq5[3]}";
+            var pt5 = $"{seq1[4]}{seq2[4]}{seq3[4]}{seq4[4]}{seq5[4]}";
             return pt1 + divider + pt2 + divider + pt3 + divider + pt4 + divider + pt5;
         }
 
-        private int[] GetSequence()
+        private string GetSequence()
         {
             int tempResult = 0, n0 = 0, n1 = 0, n2 = 0, n3 = 0, n4 = 0;
             while (tempResult != expectedResult)
@@ -110,7 +164,7 @@ namespace BarbezDotEu.License.Generation
                 tempResult = n0 + n2 + n4 - (n1 + n3);
             }
 
-            return [n0, n1, n2, n3, n4];
+            return $"{(char)n0}{(char)n1}{(char)n2}{(char)n3}{(char)n4}";
         }
     }
 }

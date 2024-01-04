@@ -12,15 +12,18 @@ The Barbez.eu license key generator is ideal for all your license key or serial 
 2. [Custom Resulting-Sum Algorithm](#custom-resulting-sum-algorithm)
 3. [Performance](#performance)
 4. [Stats](#stats)
-5. [Graphs](#graphs)
+5. [Using the Generator](#Generator)
+6. [Using the Verifier](#Verification)
+7. [Disclaimer](#disclaimer)
+8. [Author](#author)
 
 ## NuGet Packages and Demo app
 
 Get the **generator** NuGet package from https://www.nuget.org/packages/BarbezDotEu.License.Generation/ or use 
-> Install-Package BarbezDotEu.License.Generation -Version 1.2.1
+> Install-Package BarbezDotEu.License.Generation
 
 Get the **verifier** NuGet package from https://www.nuget.org/packages/BarbezDotEu.License.Verification/ or use
-> Install-Package BarbezDotEu.License.Verification -Version 1.2.1
+> Install-Package BarbezDotEu.License.Verification
 
 A demo project using this generic library can be found at https://github.com/hannesbarbez/BarbezDotEu.License.Generator.WinForms.
 
@@ -36,47 +39,41 @@ A demo project using this generic library can be found at https://github.com/han
 
 Lacking academic knowledge on serial number or license key generation algos, the generator algorithm is my own idea, so I’ve decided to dub it “resulting-sum”. More info on the exact workings to follow, for now the source code should suffice to explain its inner workings.
 
-
-
 ## Performance
 After running a couple of tests on an AMD Ryzen 1600 (6 cores, 12 threads) based machine, I compiled a short table with the results.
 
-On this hardware, a ResultingSum of 68 takes Y time to render/generate X number of unique keys. The sweet-spots are marked in bold in the below table.
+On this hardware, a ResultingSum of 68 takes Y time to generate X number of unique keys, and are shown in the below table.
 
-Results will differ for other ResultingSum values. For a value of 68, 30 000 unique keys are generated in under 9 seconds.
-
-The going gets tougher when generating 150 000 unique keys in exactly 4 minutes. Lawd.
+Results will differ for other ResultingSum values. For a value of 68, about 80 000 unique keys are generated in under 5 seconds, whereas 150 000 unique keys take about 19 seconds.
 
 ## Stats
-*Note: these stats are from the initial version of the NuGet package. Newer versions of the package are quicker, yet the overal trend of the graphs remains.*
+*Note: these stats are from version 3.0.0 of the generator, which is much faster than the initial version.*
 
 A "resulting sum" of 68 takes Y time to render/generate X number of unique keys on a Ryzen 1600 based machine.
 
 | Keys (X) | Time (ms, Y) | ms/key (=Y/X) |
 | -------- | ------------ | ------------- |
-| 1 | **12** | **12.00** |
-| 10 | **13** | **1.30** |
-| 100 | **32** | **0.32** |
-| 1 000 | **146** | **0.15** |
-| 2 500 | **358** | **0.14** |
-| 5 000 | **719** | **0.14** |
-| 10 000 | **1 500** | **0.15** |
-| 20 000 | **4 800** | **0.24** |
-| **30 000** | **8 600** | **0.29** |
-| 50 000 | 21 300 | 0.43 |
-| 62 500 | 31 500 | 0.50 |
-| 75 000 | 43 800 | 0.58 |
-| 87 500 | 66 000 | 0.75 |
-| 100 000 | 84 000 | 0.84 |
-| 150 000 | 240 000 | 1.60 |
+|   1 |   14 | 14 |
+|   10 |   14 | 1.4 |
+|   100 |   22 | .22 |
+|  1 000 |   209 | .21 |
+|  2 500 |   218 | .09 |
+|  5 000 |   402 | .08 |
+|  10 000 |   703 | .07 |
+|  20 000 |  1 472 | .07 |
+|  30 000 |  2 007 | .07 |
+|  50 000 |  3 365 | .07 |
+|  62 500 |  4 220 | .07 |
+|  75 000 |  4 867 | .06 |
+|  87 500 |  5 733 | .07 |
+|  100 000 |  6 379 | .06 |
+|  150 000 |  9 550 | .06 |
+|  300 000 |  19 291 | .06 |
+| 1 000 000 |  63 035 | .06 |
 
-## Graphs
-*Note: these stats are from the initial version of the NuGet package. Newer versions of the package are quicker, yet the overal trend of the graphs remains.*
+# Generator
 
-![Y time needed (ms) to generate X number of keys.](https://barbez.eu/wp-content/uploads/2020/09/image-4.png)
-![Y time needed (ms) per key when generating X number of keys.](https://barbez.eu/wp-content/uploads/2020/09/image-3.png)
-
-# BarbezDotEu.License.Generation
+How to use BarbezDotEu.License.Generation.
 
 ## Contents
 
@@ -125,7 +122,9 @@ The generated license keys.
 | numberOfKeys | [System.UInt32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.UInt32 'System.UInt32') | The amount of keys to generate. |
 | excludedKeys | [System.String[]](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String[] 'System.String[]') | Keys that cannot be present in the resulting key set. |
 
-# BarbezDotEu.License.Verification
+# Verification
+
+How to use BarbezDotEu.License.Verification.
 
 ## Contents
 
@@ -217,10 +216,10 @@ TRUE if the key is valid. False, otherwise.
 | ---- | ---- | ----------- |
 | key | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | The key to verify. |
 
-# Mild disclaimer
+# Disclaimer
 The code in this repository was written for and used within a variety of Barbez.eu apps distributed via Amazon.com in the late 2010's.
 
-If you're looking for a license key generator that is "uncrackable", this is one is not for you. You can however consider using it as a base for your own license key generator, perhaps.
+If you're looking for a license key generator that is "uncrackable", this is one is not for you (also, both generator and verificator are open source). You can however consider using it as a base for your own license key generator, perhaps.
 
 ## Author
 www.barbez.eu
