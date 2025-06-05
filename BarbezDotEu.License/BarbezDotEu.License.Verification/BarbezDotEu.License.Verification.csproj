@@ -6,8 +6,8 @@
     <Title>BarbezDotEu.License.Verification</Title>
     <Product>BarbezDotEu.License.Verification</Product>
     <PackageId>BarbezDotEu.License.Verification</PackageId>
-    <Copyright>©2024 Hannes Barbez</Copyright>
-    <Version>3.0.0</Version>
+    <Copyright>©2025 Hannes Barbez</Copyright>
+    <Version>3.0.1</Version>
     <Description>
         Verifies serial numbers or license keys generated using BarbezDotEu.License.Generation. 
         The generator is suited for most of your license key or serial number needs, using TPL and async. 
@@ -28,6 +28,14 @@
     <PackageIcon>ICON.png</PackageIcon>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
+
+    <!-- only applies when Configuration == Release: -->
+    <PropertyGroup Condition="'$(Configuration)'=='Release'">
+        <!-- Turn off generation of a .pdb and strip debug info entirely -->
+        <DebugType>none</DebugType>
+        <DebugSymbols>false</DebugSymbols>
+        <Optimize>true</Optimize>
+    </PropertyGroup>
     <ItemGroup>
         <None Include="..\..\README.md" Pack="true" PackagePath="\" />
         <None Include="..\..\ICON.png" Pack="true" PackagePath="\" />

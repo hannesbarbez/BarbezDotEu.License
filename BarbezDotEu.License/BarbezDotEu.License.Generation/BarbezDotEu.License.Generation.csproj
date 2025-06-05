@@ -6,8 +6,8 @@
     <Title>BarbezDotEu.License.Generation</Title>
     <Product>BarbezDotEu.License.Generation</Product>
     <PackageId>BarbezDotEu.License.Generation</PackageId>
-    <Copyright>©2024 Hannes Barbez</Copyright>
-    <Version>3.0.0</Version>
+    <Copyright>©2025 Hannes Barbez</Copyright>
+    <Version>3.0.1</Version>
     <Description>
         This serial number and license key generator produces keys or serials that are easy to read out loud one human to another. 
         It suits most of serial number or license key needs, employing TPL and supporting async. 
@@ -27,6 +27,14 @@
     <PackageIcon>ICON.png</PackageIcon>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
+
+    <!-- only applies when Configuration == Release: -->
+    <PropertyGroup Condition="'$(Configuration)'=='Release'">
+        <!-- Turn off generation of a .pdb and strip debug info entirely -->
+        <DebugType>none</DebugType>
+        <DebugSymbols>false</DebugSymbols>
+        <Optimize>true</Optimize>
+    </PropertyGroup>
     <ItemGroup>
         <None Include="..\..\README.md" Pack="true" PackagePath="\" />
         <None Include="..\..\ICON.png" Pack="true" PackagePath="\" />
