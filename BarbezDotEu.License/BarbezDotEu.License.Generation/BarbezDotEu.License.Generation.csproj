@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <Authors>Hannes Barbez</Authors>
     <Company>Hannes Barbez</Company>
     <Title>BarbezDotEu.License.Generation</Title>
     <Product>BarbezDotEu.License.Generation</Product>
     <PackageId>BarbezDotEu.License.Generation</PackageId>
-    <Copyright>©2025 Hannes Barbez</Copyright>
-    <Version>3.0.1</Version>
+    <Copyright>©2026 Hannes Barbez</Copyright>
+    <Version>4.0.0</Version>
     <Description>
         This serial number and license key generator produces keys or serials that are easy to read out loud one human to another. 
         It suits most of serial number or license key needs, employing TPL and supporting async. 

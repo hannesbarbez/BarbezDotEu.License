@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <Authors>Hannes Barbez</Authors>
     <Company>Hannes Barbez</Company>
     <Title>BarbezDotEu.License.Verification</Title>
     <Product>BarbezDotEu.License.Verification</Product>
     <PackageId>BarbezDotEu.License.Verification</PackageId>
-    <Copyright>©2025 Hannes Barbez</Copyright>
-    <Version>3.0.1</Version>
+    <Copyright>©2026 Hannes Barbez</Copyright>
+    <Version>4.0.0</Version>
     <Description>
         Verifies serial numbers or license keys generated using BarbezDotEu.License.Generation. 
         The generator is suited for most of your license key or serial number needs, using TPL and async. 
